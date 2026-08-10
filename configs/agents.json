@@ -1,0 +1,25 @@
+{
+  "schema_version": "0.1.0",
+  "status": "draft-not-frozen",
+  "agents": {
+    "codex_cli": {
+      "binary": "codex",
+      "observed_version": "codex-cli 0.147.0",
+      "context_filename": "AGENTS.md",
+      "prompt_transport": "stdin",
+      "model": null,
+      "reasoning_effort": null,
+      "arguments": [
+        "exec",
+        "--ephemeral",
+        "--ignore-user-config",
+        "--sandbox",
+        "workspace-write",
+        "--skip-git-repo-check",
+        "--json",
+        "-"
+      ],
+      "note": "Derived from the locally installed CLI help on 2026-08-10. No approval or sandbox bypass flag is permitted. The experiment runner refuses to execute until status, model, reasoning effort, and version are frozen."
+    }
+  }
+}

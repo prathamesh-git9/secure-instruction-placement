@@ -1,0 +1,24 @@
+{
+  "task_id": "example_only",
+  "title": "Schema example not used in experiments",
+  "language": "Python",
+  "cwe": ["CWE-999"],
+  "source": {
+    "name": "Synthetic documentation example",
+    "url": "https://example.invalid/source",
+    "revision": "not-applicable",
+    "retrieved_at": "2026-08-10"
+  },
+  "license": {
+    "spdx": "CC0-1.0",
+    "evidence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "adaptation_allowed": true
+  },
+  "commands": {
+    "setup": ["python -m pip install -r requirements.txt"],
+    "functional_test": ["python -m unittest tests.test_functional"],
+    "security_test": ["python -m unittest tests.test_security"]
+  },
+  "notes": "Documentation only; never include in analysis."
+}
+
