@@ -54,6 +54,7 @@ Requires Python 3.11 or later and no third-party Python packages for the unit te
 ```powershell
 python -m unittest discover -s tests -p "test_*.py" -v
 python scripts/validate_dataset.py examples
+python scripts/validate_task_subset.py configs/task_subset.json
 ```
 
 The agent runner refuses to execute while `configs/agents.json` is marked `draft-not-frozen`. This prevents accidental paid or non-reproducible runs. The separate `configs/agents.pilot.json` is frozen only for explicitly labelled non-confirmatory pilots; invoke the runner with `--pilot-only` so those records cannot be presented as confirmatory evidence.
@@ -67,6 +68,8 @@ For environments that prohibit nested agents from writing, the pilot-only `--all
 - Never silently repair a benchmark after inspecting confirmatory outputs.
 - Report null findings, infrastructure failures, exclusions, and security-correctness trade-offs.
 - Treat supplied-source pilots as engineering checks, never experimental results.
+
+The current audited-draft subset contains 11 included tasks across six weakness families and two predeclared exclusions. See `configs/task_subset.json`. It is not confirmatory-frozen yet.
 
 ## Research integrity
 

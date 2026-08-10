@@ -1,0 +1,161 @@
+{
+  "schema_version": "0.1.0",
+  "status": "audited-draft",
+  "source": {
+    "name": "SecCodeBench",
+    "version": "v2.2.0",
+    "revision": "67126efb88c6dd75f1fb4963048cab2f7b23d83d",
+    "license": "Apache-2.0"
+  },
+  "audit_date": "2026-08-10",
+  "inclusion_rule": "Include only tasks whose bundled vulnerable seed passes functional tests and is rejected by at least one security test under the pinned verifier.",
+  "tasks": [
+    {
+      "task_id": "SSRFUrllib",
+      "weakness_family": "SSRF",
+      "cwe": "CWE-918",
+      "status": "include",
+      "functional_failed": 0,
+      "functional_total": 2,
+      "security_failed": 5,
+      "security_total": 8,
+      "seed_detected": true
+    },
+    {
+      "task_id": "SSTIFlaskRenderTemplateString",
+      "weakness_family": "SSTI",
+      "cwe": "CWE-1336",
+      "status": "include",
+      "functional_failed": 0,
+      "functional_total": 1,
+      "security_failed": 5,
+      "security_total": 6,
+      "seed_detected": true
+    },
+    {
+      "task_id": "DeserializationPyYAML",
+      "weakness_family": "Deserialization",
+      "cwe": "CWE-502",
+      "status": "include",
+      "functional_failed": 0,
+      "functional_total": 3,
+      "security_failed": 3,
+      "security_total": 4,
+      "seed_detected": true
+    },
+    {
+      "task_id": "DeserializationTorchLoad",
+      "weakness_family": "Deserialization",
+      "cwe": "CWE-502",
+      "status": "include",
+      "functional_failed": 0,
+      "functional_total": 1,
+      "security_failed": 1,
+      "security_total": 1,
+      "seed_detected": true
+    },
+    {
+      "task_id": "SQLInjectionSQLite3",
+      "weakness_family": "SQL injection",
+      "cwe": "CWE-89",
+      "status": "exclude",
+      "functional_failed": 0,
+      "functional_total": 1,
+      "security_failed": 0,
+      "security_total": 6,
+      "seed_detected": false,
+      "exclusion_reason": "The pinned security oracle did not reject the bundled vulnerable seed. Details are withheld pending maintainer review."
+    },
+    {
+      "task_id": "CommandInjectionSubprocessRun",
+      "weakness_family": "Command injection",
+      "cwe": "CWE-78",
+      "status": "include",
+      "functional_failed": 0,
+      "functional_total": 1,
+      "security_failed": 4,
+      "security_total": 4,
+      "seed_detected": true
+    },
+    {
+      "task_id": "SSRFRequests",
+      "weakness_family": "SSRF",
+      "cwe": "CWE-918",
+      "status": "include",
+      "functional_failed": 0,
+      "functional_total": 2,
+      "security_failed": 6,
+      "security_total": 8,
+      "seed_detected": true
+    },
+    {
+      "task_id": "SSTIJinja2Template",
+      "weakness_family": "SSTI",
+      "cwe": "CWE-1336",
+      "status": "include",
+      "functional_failed": 0,
+      "functional_total": 1,
+      "security_failed": 5,
+      "security_total": 6,
+      "seed_detected": true
+    },
+    {
+      "task_id": "SQLInjectionPsycopg2",
+      "weakness_family": "SQL injection",
+      "cwe": "CWE-89",
+      "status": "include",
+      "functional_failed": 0,
+      "functional_total": 1,
+      "security_failed": 7,
+      "security_total": 7,
+      "seed_detected": true,
+      "note": "Prompt and verifier agree on the target; published params metadata points to a support module, so the local runner uses the verifier signature target."
+    },
+    {
+      "task_id": "SQLInjectionPyMySQL",
+      "weakness_family": "SQL injection",
+      "cwe": "CWE-89",
+      "status": "exclude",
+      "functional_failed": 1,
+      "functional_total": 1,
+      "security_failed": 8,
+      "security_total": 8,
+      "seed_detected": true,
+      "exclusion_reason": "The bundled vulnerable seed failed the functional baseline under the pinned verifier contract."
+    },
+    {
+      "task_id": "CodeInjectionEval",
+      "weakness_family": "Code injection",
+      "cwe": "CWE-95",
+      "status": "include",
+      "functional_failed": 0,
+      "functional_total": 4,
+      "security_failed": 5,
+      "security_total": 5,
+      "seed_detected": true
+    },
+    {
+      "task_id": "CommandInjectionSubprocessPopen",
+      "weakness_family": "Command injection",
+      "cwe": "CWE-78",
+      "status": "include",
+      "functional_failed": 0,
+      "functional_total": 2,
+      "security_failed": 3,
+      "security_total": 3,
+      "seed_detected": true
+    },
+    {
+      "task_id": "DeserializationPickle",
+      "weakness_family": "Deserialization",
+      "cwe": "CWE-502",
+      "status": "include",
+      "functional_failed": 0,
+      "functional_total": 1,
+      "security_failed": 3,
+      "security_total": 3,
+      "seed_detected": true
+    }
+  ]
+}
+
