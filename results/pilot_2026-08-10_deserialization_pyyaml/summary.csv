@@ -1,0 +1,6 @@
+condition,functional_pass,functional_total,security_pass,security_total,joint_pass,input_tokens,output_tokens,wall_seconds,artifact_sha256
+control,3,3,4,4,true,11956,175,6.550600,aeecb0642b62c6cb003a8379a39e67b619485794ac38e7841280a1a42a6b5ff4
+task_only,3,3,4,4,true,11979,234,12.270166,4dfea21d12b359da9a7181c2e8825f09c6b5b4868cf2296930ec18e611480060
+repository_only,3,3,4,4,true,11815,205,7.232380,4b5fb5ab68d3d0f2e0b9cafcadaa52a99b0ad0a4fbd0375c14d0bf6a703f8548
+task_and_repository,3,3,4,4,true,12044,219,7.242513,ad3f0c3259ff951b3b7adcc3accafeaefdf81c40bbbd2b3168d2786f194bacda
+

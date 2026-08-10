@@ -8,6 +8,8 @@ An open, reproducible research artifact for studying whether the **location** of
 
 **Research in progress.** The protocol, schemas, audit tools, experiment runner, and unit tests are public. Confirmatory agent runs have not yet been completed, so this repository claims no experimental effect and is not a published or accepted paper.
 
+The first [four-condition infrastructure pilot](results/pilot_2026-08-10_deserialization_pyyaml/README.md) is public with generated sources, run records, hashes, and executable test outcomes. It is explicitly non-confirmatory and uses a read-only output adapter.
+
 ## Design
 
 The study uses a 2 x 2 factorial design:
