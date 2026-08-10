@@ -77,6 +77,8 @@ The current audited-draft subset contains 11 included tasks across six weakness 
 
 See [AI_USE.md](AI_USE.md). AI tools assisted with implementation and drafting. They are not authors. The human researcher must understand, verify, and take responsibility for any released result or manuscript.
 
+An [independent methods review is publicly requested](docs/INDEPENDENT_REVIEW_REQUEST.md) before confirmatory execution.
+
 ## Licence and citation
 
 Original code and documentation in this repository are released under the [MIT License](LICENSE). Third-party benchmarks retain their own licences and are not redistributed here. Citation metadata is available in [CITATION.cff](CITATION.cff).
