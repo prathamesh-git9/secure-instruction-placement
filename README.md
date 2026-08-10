@@ -34,6 +34,10 @@ The artifact makes research decisions inspectable before results exist. It recor
 - analysis code for rates and Wilson intervals;
 - unit tests and continuous integration.
 
+The public [research roadmap](docs/RESEARCH_ROADMAP.md) separates the active
+study from planned follow-on work on evaluation-oracle integrity and coding-agent
+reproducibility. Planned stages are not presented as completed outputs.
+
 ## Repository layout
 
 ```text
