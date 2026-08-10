@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.venv/
+.env
+sources/
+pilots/
+results/raw/
+artifacts/private/
+private_inputs/
+
