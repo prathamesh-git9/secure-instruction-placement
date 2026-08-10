@@ -24,3 +24,5 @@ jobs:
         run: python scripts/validate_dataset.py examples
       - name: Validate audited task subset
         run: python scripts/validate_task_subset.py configs/task_subset.json
+      - name: Validate public writable-agent pilot
+        run: python scripts/publish_pilot_matrix.py --output results/pilot_2026-08-10_writable_three_task --validate-existing

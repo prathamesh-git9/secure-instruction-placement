@@ -25,7 +25,6 @@ from run_source_pilot import load_task, sha256_bytes, write_exclusive_json
 FORBIDDEN_ARGUMENTS = {
     "--dangerously-bypass-approvals-and-sandbox",
     "--dangerously-bypass-hook-trust",
-    "--approve-for-me",
 }
 REASONING_LEVELS = {"low", "medium", "high", "xhigh", "max", "ultra"}
 
@@ -44,6 +43,11 @@ def load_frozen_agent(config_path: Path, agent_id: str) -> dict[str, object]:
     forbidden = FORBIDDEN_ARGUMENTS.intersection(arguments)
     if forbidden:
         raise ValueError(f"forbidden agent argument(s): {', '.join(sorted(forbidden))}")
+    if "--approve-for-me" in arguments:
+        if agent.get("approval_mode") != "automatic-review":
+            raise ValueError("--approve-for-me requires approval_mode=automatic-review")
+        if "--sandbox" in arguments:
+            raise ValueError("--approve-for-me cannot be combined with an explicit sandbox flag")
     if agent.get("prompt_transport") != "stdin" or arguments[-1:] != ["-"]:
         raise ValueError("runner requires stdin prompt transport ending in '-' argument")
     if agent.get("context_filename") not in {"AGENTS.md", "CLAUDE.md"}:

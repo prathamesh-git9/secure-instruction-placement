@@ -41,6 +41,25 @@
         "-"
       ],
       "note": "Non-confirmatory output-only adapter for environments that cannot grant a nested agent workspace writes. The outer harness extracts one fenced Python block and verifies it. Never use this adapter for confirmatory coding-agent claims."
+    },
+    "codex_cli_luna_medium_writable": {
+      "binary": "codex.cmd",
+      "observed_version": "codex-cli 0.147.0",
+      "context_filename": "AGENTS.md",
+      "prompt_transport": "stdin",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "medium",
+      "approval_mode": "automatic-review",
+      "arguments": [
+        "exec",
+        "--ephemeral",
+        "--ignore-user-config",
+        "--approve-for-me",
+        "--skip-git-repo-check",
+        "--json",
+        "-"
+      ],
+      "note": "Non-confirmatory writable-agent pilot. Codex automatic review provides workspace-write behavior without the dangerous sandbox-bypass flag. Each run starts in a new disposable workspace and remains marked pilot_only."
     }
   }
 }

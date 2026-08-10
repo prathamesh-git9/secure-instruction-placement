@@ -53,6 +53,34 @@ class AgentExperimentTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "forbidden"):
                 MODULE.load_frozen_agent(path, "codex_cli")
 
+    def test_automatic_review_requires_explicit_mode(self):
+        with tempfile.TemporaryDirectory() as directory:
+            config = base_config()
+            config["agents"]["codex_cli"]["arguments"].insert(-1, "--approve-for-me")
+            path = self.write_config(directory, config)
+            with self.assertRaisesRegex(ValueError, "approval_mode"):
+                MODULE.load_frozen_agent(path, "codex_cli")
+
+    def test_declared_automatic_review_is_accepted(self):
+        with tempfile.TemporaryDirectory() as directory:
+            config = base_config()
+            agent = config["agents"]["codex_cli"]
+            agent["arguments"].insert(-1, "--approve-for-me")
+            agent["approval_mode"] = "automatic-review"
+            path = self.write_config(directory, config)
+            loaded = MODULE.load_frozen_agent(path, "codex_cli")
+            self.assertEqual(loaded["approval_mode"], "automatic-review")
+
+    def test_automatic_review_rejects_explicit_sandbox_combination(self):
+        with tempfile.TemporaryDirectory() as directory:
+            config = base_config()
+            agent = config["agents"]["codex_cli"]
+            agent["arguments"][-1:-1] = ["--approve-for-me", "--sandbox", "workspace-write"]
+            agent["approval_mode"] = "automatic-review"
+            path = self.write_config(directory, config)
+            with self.assertRaisesRegex(ValueError, "cannot be combined"):
+                MODULE.load_frozen_agent(path, "codex_cli")
+
     def test_model_and_reasoning_are_explicit_in_command(self):
         agent = base_config()["agents"]["codex_cli"]
         command = MODULE.build_command(agent)

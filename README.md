@@ -8,7 +8,7 @@ An open, reproducible research artifact for studying whether the **location** of
 
 **Research in progress.** The protocol, schemas, audit tools, experiment runner, and unit tests are public. Confirmatory agent runs have not yet been completed, so this repository claims no experimental effect and is not a published or accepted paper.
 
-The first [four-condition infrastructure pilot](results/pilot_2026-08-10_deserialization_pyyaml/README.md) is public with generated sources, run records, hashes, and executable test outcomes. It is explicitly non-confirmatory and uses a read-only output adapter. The artifact currently has 29 unit tests plus a two-version CI matrix.
+Two public non-confirmatory pilots now exist. The first [four-condition infrastructure pilot](results/pilot_2026-08-10_deserialization_pyyaml/README.md) uses a read-only output adapter. The second [three-task writable-agent pilot](results/pilot_2026-08-10_writable_three_task/README.md) contains 12 direct file-editing runs with generated sources, records, hashes, and executable outcomes. The artifact currently has 34 unit tests plus a two-version CI matrix.
 
 ## Design
 
@@ -60,6 +60,8 @@ python scripts/validate_task_subset.py configs/task_subset.json
 The agent runner refuses to execute while `configs/agents.json` is marked `draft-not-frozen`. This prevents accidental paid or non-reproducible runs. The separate `configs/agents.pilot.json` is frozen only for explicitly labelled non-confirmatory pilots; invoke the runner with `--pilot-only` so those records cannot be presented as confirmatory evidence.
 
 For environments that prohibit nested agents from writing, the pilot-only `--allow-output-extraction` adapter can verify the final fenced code block. The runner refuses this adapter unless `--pilot-only` is also present. Results from that transport do not support confirmatory claims about a file-editing coding agent.
+
+The writable pilot configuration uses Codex automatic review in a fresh, disposable workspace. The runner permits this mode only when it is explicitly declared and rejects any dangerous sandbox-bypass argument. Automatic review and an explicit `--sandbox` flag cannot be combined by the CLI, so the configuration records the effective approval mode instead.
 
 ## Reproducibility policy
 
