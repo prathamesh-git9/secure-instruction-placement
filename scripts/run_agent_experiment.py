@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import subprocess
 import sys
 import time
@@ -120,6 +121,32 @@ def write_exclusive_text(path: Path, value: str) -> None:
         handle.write(value)
 
 
+def extract_last_fenced_code(raw_jsonl: str) -> str:
+    """Extract the last fenced Python block from a Codex JSONL agent message."""
+    messages: list[str] = []
+    for line in raw_jsonl.splitlines():
+        try:
+            value = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        item = value.get("item", {}) if isinstance(value, dict) else {}
+        if item.get("type") == "agent_message" and isinstance(item.get("text"), str):
+            messages.append(item["text"])
+    blocks: list[str] = []
+    for message in messages:
+        blocks.extend(
+            match.strip()
+            for match in re.findall(
+                r"```(?:python)?\s*\n(.*?)```",
+                message,
+                flags=re.IGNORECASE | re.DOTALL,
+            )
+        )
+    if not blocks or not blocks[-1]:
+        raise ValueError("agent output contains no non-empty fenced Python block")
+    return blocks[-1] + "\n"
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--upstream", type=Path, required=True)
@@ -139,7 +166,14 @@ def main() -> int:
         action="store_true",
         help="Mark this run as non-confirmatory and exclude it from research analysis.",
     )
+    parser.add_argument(
+        "--allow-output-extraction",
+        action="store_true",
+        help="For read-only pilots, verify code returned in the final fenced block.",
+    )
     args = parser.parse_args()
+    if args.allow_output_extraction and not args.pilot_only:
+        raise SystemExit("output extraction is permitted only for non-confirmatory pilots")
 
     upstream = args.upstream.resolve()
     workspace = args.workspace.resolve()
@@ -164,6 +198,12 @@ def main() -> int:
         str(agent["context_filename"]),
     )
     prompt = str(condition_record.pop("prompt"))
+    if args.allow_output_extraction:
+        prompt += (
+            "\n\n## Non-confirmatory pilot transport\n\n"
+            "The environment is read-only. Return only the complete target file in one "
+            "fenced Python code block. Do not attempt to edit files.\n"
+        )
     command = build_command(agent)
     started_at = datetime.now(timezone.utc)
     start = time.monotonic()
@@ -195,6 +235,20 @@ def main() -> int:
     wall_seconds = time.monotonic() - start
 
     target = workspace.joinpath(*task["target"].parts)
+    output_extracted = False
+    if (
+        args.allow_output_extraction
+        and exit_state == "completed"
+        and not target.is_file()
+    ):
+        try:
+            extracted = extract_last_fenced_code(stdout)
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text(extracted, encoding="utf-8", newline="\n")
+            output_extracted = True
+        except ValueError as exc:
+            exit_state = "agent_output_error"
+            stderr += f"\nOutput extraction error: {exc}\n"
     source = target.read_bytes() if target.is_file() else b""
     functional_pass = False
     security_pass = False
@@ -242,6 +296,7 @@ def main() -> int:
         "metadata_target_mismatch": task["metadata_target_mismatch"],
         "metadata_targets": task["metadata_targets"],
         "condition_materialization": condition_record,
+        "output_extracted": output_extracted,
         "verifier_counts": counts or {},
         "agent_exit_code": exit_code,
         "command": command,

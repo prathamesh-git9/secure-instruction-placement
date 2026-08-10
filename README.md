@@ -56,6 +56,8 @@ python scripts/validate_dataset.py examples
 
 The agent runner refuses to execute while `configs/agents.json` is marked `draft-not-frozen`. This prevents accidental paid or non-reproducible runs. The separate `configs/agents.pilot.json` is frozen only for explicitly labelled non-confirmatory pilots; invoke the runner with `--pilot-only` so those records cannot be presented as confirmatory evidence.
 
+For environments that prohibit nested agents from writing, the pilot-only `--allow-output-extraction` adapter can verify the final fenced code block. The runner refuses this adapter unless `--pilot-only` is also present. Results from that transport do not support confirmatory claims about a file-editing coding agent.
+
 ## Reproducibility policy
 
 - Freeze task inclusion, exclusions, model, agent version, reasoning setting, conditions, repetitions, and analysis before confirmatory runs.

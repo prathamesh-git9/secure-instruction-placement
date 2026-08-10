@@ -75,6 +75,28 @@ class AgentExperimentTests(unittest.TestCase):
         self.assertIn('"--pilot-only"', source)
         self.assertIn('"pilot_only": args.pilot_only', source)
 
+    def test_extracts_last_fenced_python_block(self):
+        raw = "\n".join(
+            [
+                json.dumps({"item": {"type": "agent_message", "text": "checking"}}),
+                json.dumps(
+                    {
+                        "item": {
+                            "type": "agent_message",
+                            "text": "```python\nvalue = 1\n```",
+                        }
+                    }
+                ),
+            ]
+        )
+        self.assertEqual(MODULE.extract_last_fenced_code(raw), "value = 1\n")
+
+    def test_output_extraction_requires_code_block(self):
+        with self.assertRaisesRegex(ValueError, "no non-empty"):
+            MODULE.extract_last_fenced_code(
+                json.dumps({"item": {"type": "agent_message", "text": "no code"}})
+            )
+
 
 if __name__ == "__main__":
     unittest.main()

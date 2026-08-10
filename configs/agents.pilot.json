@@ -5,7 +5,7 @@
   "frozen_at": "2026-08-10",
   "agents": {
     "codex_cli_luna_medium": {
-      "binary": "codex",
+      "binary": "codex.cmd",
       "observed_version": "codex-cli 0.147.0",
       "context_filename": "AGENTS.md",
       "prompt_transport": "stdin",
@@ -21,7 +21,26 @@
         "--json",
         "-"
       ],
-      "note": "Pilot configuration selected on 2026-08-10. Official model guidance describes gpt-5.6-luna as the efficient high-volume option and medium reasoning as a balanced starting point. This does not freeze the later confirmatory model set."
+      "note": "Windows pilot configuration selected on 2026-08-10. Official model guidance describes gpt-5.6-luna as the efficient high-volume option and medium reasoning as a balanced starting point. This does not freeze the later confirmatory model set."
+    },
+    "codex_cli_luna_medium_output": {
+      "binary": "codex.cmd",
+      "observed_version": "codex-cli 0.147.0",
+      "context_filename": "AGENTS.md",
+      "prompt_transport": "stdin",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "medium",
+      "arguments": [
+        "exec",
+        "--ephemeral",
+        "--ignore-user-config",
+        "--sandbox",
+        "read-only",
+        "--skip-git-repo-check",
+        "--json",
+        "-"
+      ],
+      "note": "Non-confirmatory output-only adapter for environments that cannot grant a nested agent workspace writes. The outer harness extracts one fenced Python block and verifies it. Never use this adapter for confirmatory coding-agent claims."
     }
   }
 }
