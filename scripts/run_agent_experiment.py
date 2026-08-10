@@ -134,6 +134,11 @@ def main() -> int:
     parser.add_argument("--endpoint", default="http://localhost:24684")
     parser.add_argument("--agent-timeout", type=int, default=900)
     parser.add_argument("--verifier-timeout", type=int, default=180)
+    parser.add_argument(
+        "--pilot-only",
+        action="store_true",
+        help="Mark this run as non-confirmatory and exclude it from research analysis.",
+    )
     args = parser.parse_args()
 
     upstream = args.upstream.resolve()
@@ -226,8 +231,12 @@ def main() -> int:
         "wall_seconds": wall_seconds,
         "exit_state": exit_state,
         "artifact_hash": sha256_bytes(source),
-        "notes": "Frozen-agent experimental run; inspect raw logs and diff before inclusion.",
-        "pilot_only": False,
+        "notes": (
+            "Non-confirmatory agent pilot; exclude from research analysis."
+            if args.pilot_only
+            else "Frozen-agent confirmatory run; inspect raw logs and diff before inclusion."
+        ),
+        "pilot_only": args.pilot_only,
         "upstream_revision": "67126efb88c6dd75f1fb4963048cab2f7b23d83d",
         "target_path": task["target"].as_posix(),
         "metadata_target_mismatch": task["metadata_target_mismatch"],

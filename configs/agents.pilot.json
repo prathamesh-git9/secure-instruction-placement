@@ -1,0 +1,27 @@
+{
+  "schema_version": "0.1.0",
+  "status": "frozen",
+  "purpose": "Non-confirmatory four-condition infrastructure pilot only",
+  "frozen_at": "2026-08-10",
+  "agents": {
+    "codex_cli_luna_medium": {
+      "binary": "codex",
+      "observed_version": "codex-cli 0.147.0",
+      "context_filename": "AGENTS.md",
+      "prompt_transport": "stdin",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "medium",
+      "arguments": [
+        "exec",
+        "--ephemeral",
+        "--ignore-user-config",
+        "--sandbox",
+        "workspace-write",
+        "--skip-git-repo-check",
+        "--json",
+        "-"
+      ],
+      "note": "Pilot configuration selected on 2026-08-10. Official model guidance describes gpt-5.6-luna as the efficient high-volume option and medium reasoning as a balanced starting point. This does not freeze the later confirmatory model set."
+    }
+  }
+}

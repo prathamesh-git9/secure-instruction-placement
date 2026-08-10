@@ -54,7 +54,7 @@ python -m unittest discover -s tests -p "test_*.py" -v
 python scripts/validate_dataset.py examples
 ```
 
-The agent runner refuses to execute while `configs/agents.json` is marked `draft-not-frozen`. This prevents accidental paid or non-reproducible runs.
+The agent runner refuses to execute while `configs/agents.json` is marked `draft-not-frozen`. This prevents accidental paid or non-reproducible runs. The separate `configs/agents.pilot.json` is frozen only for explicitly labelled non-confirmatory pilots; invoke the runner with `--pilot-only` so those records cannot be presented as confirmatory evidence.
 
 ## Reproducibility policy
 
@@ -71,4 +71,3 @@ See [AI_USE.md](AI_USE.md). AI tools assisted with implementation and drafting. 
 ## Licence and citation
 
 Original code and documentation in this repository are released under the [MIT License](LICENSE). Third-party benchmarks retain their own licences and are not redistributed here. Citation metadata is available in [CITATION.cff](CITATION.cff).
-

@@ -70,6 +70,11 @@ class AgentExperimentTests(unittest.TestCase):
         )
         self.assertEqual(MODULE.parse_jsonl_usage(raw), (25, 8))
 
+    def test_pilot_flag_is_available_and_recorded(self):
+        source = MODULE_PATH.read_text(encoding="utf-8")
+        self.assertIn('"--pilot-only"', source)
+        self.assertIn('"pilot_only": args.pilot_only', source)
+
 
 if __name__ == "__main__":
     unittest.main()
