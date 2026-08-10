@@ -1,0 +1,58 @@
+{
+  "schema_version": "0.1.0",
+  "design_id": "secure-instruction-placement-confirmatory-v1",
+  "status": "draft-awaiting-review-and-budget",
+  "created_at": "2026-08-10",
+  "benchmark_revision": "67126efb88c6dd75f1fb4963048cab2f7b23d83d",
+  "study_split": "configs/study_split.json",
+  "tasks": [
+    "SSRFUrllib",
+    "SSTIFlaskRenderTemplateString",
+    "DeserializationTorchLoad",
+    "SSRFRequests",
+    "SSTIJinja2Template",
+    "SQLInjectionPsycopg2",
+    "CommandInjectionSubprocessPopen",
+    "DeserializationPickle"
+  ],
+  "conditions": [
+    "control",
+    "task_only",
+    "repository_only",
+    "task_and_repository"
+  ],
+  "repetitions_per_cell": 3,
+  "planned_runs_per_agent": 96,
+  "run_order": {
+    "method": "independently shuffle every complete task-condition repetition block",
+    "seed": 20260810
+  },
+  "primary_outcome": "joint functional and security pass with completed exit state",
+  "primary_estimand": "mean task-level task-instruction main effect on joint pass rate",
+  "secondary_estimands": [
+    "repository-instruction main effect",
+    "task-by-repository interaction",
+    "task_only minus control",
+    "repository_only minus control",
+    "task_and_repository minus control"
+  ],
+  "analysis_unit": "task",
+  "uncertainty": {
+    "interval": "task-cluster bootstrap percentile interval",
+    "confidence_level": 0.95,
+    "bootstrap_resamples": 10000,
+    "bootstrap_seed": 20260810,
+    "randomization_test": "exact task-level sign-flip test"
+  },
+  "agents": null,
+  "budget_ceiling_usd": null,
+  "independent_review_complete": false,
+  "freeze_gates": [
+    "independent methods review recorded",
+    "exact agent and model versions selected",
+    "budget ceiling approved",
+    "schedule and analysis validation green",
+    "frozen tag created before any holdout model run"
+  ]
+}
+

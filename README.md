@@ -79,6 +79,10 @@ See [AI_USE.md](AI_USE.md). AI tools assisted with implementation and drafting. 
 
 An [independent methods review is publicly requested](docs/INDEPENDENT_REVIEW_REQUEST.md) before confirmatory execution.
 
+The [confirmatory analysis plan](docs/CONFIRMATORY_ANALYSIS_PLAN.md) locks three pilot tasks as development data and protects eight untouched tasks as a holdout. A 96-run-per-agent randomized schedule and task-clustered factorial analysis implementation are committed, but execution remains gated on review, exact agent selection, and a budget ceiling.
+
+`configs/design_draft.sha256` binds the current task subset, development/holdout split, conditions, design, schedule, and analysis implementation into one reviewable draft snapshot.
+
 ## Licence and citation
 
 Original code and documentation in this repository are released under the [MIT License](LICENSE). Third-party benchmarks retain their own licences and are not redistributed here. Citation metadata is available in [CITATION.cff](CITATION.cff).

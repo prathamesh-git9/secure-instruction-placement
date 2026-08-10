@@ -26,3 +26,9 @@ jobs:
         run: python scripts/validate_task_subset.py configs/task_subset.json
       - name: Validate public writable-agent pilot
         run: python scripts/publish_pilot_matrix.py --output results/pilot_2026-08-10_writable_three_task --validate-existing
+      - name: Validate development and holdout split
+        run: python scripts/validate_study_design.py --subset configs/task_subset.json --split configs/study_split.json --design configs/confirmatory_design.json
+      - name: Validate confirmatory run schedule
+        run: python scripts/generate_run_schedule.py --design configs/confirmatory_design.json --output configs/confirmatory_schedule.csv --validate-existing
+      - name: Verify design snapshot hashes
+        run: sha256sum --check configs/design_draft.sha256

@@ -1,0 +1,36 @@
+{
+  "schema_version": "0.1.0",
+  "status": "locked-before-holdout-model-runs",
+  "locked_at": "2026-08-10",
+  "source_subset": "configs/task_subset.json",
+  "rule": "Tasks used in any live agent pilot are development tasks and cannot contribute to confirmatory effect estimates. Tasks with failed benchmark eligibility checks remain excluded. All other audited tasks form the untouched holdout.",
+  "development_tasks": [
+    {
+      "task_id": "DeserializationPyYAML",
+      "reason": "Used in the read-only and writable four-condition pilots."
+    },
+    {
+      "task_id": "CommandInjectionSubprocessRun",
+      "reason": "Used in the writable four-condition pilot."
+    },
+    {
+      "task_id": "CodeInjectionEval",
+      "reason": "Used in the writable four-condition pilot; a condition difference was observed and remains exploratory."
+    }
+  ],
+  "confirmatory_holdout_tasks": [
+    "SSRFUrllib",
+    "SSTIFlaskRenderTemplateString",
+    "DeserializationTorchLoad",
+    "SSRFRequests",
+    "SSTIJinja2Template",
+    "SQLInjectionPsycopg2",
+    "CommandInjectionSubprocessPopen",
+    "DeserializationPickle"
+  ],
+  "excluded_tasks": [
+    "SQLInjectionSQLite3",
+    "SQLInjectionPyMySQL"
+  ]
+}
+
