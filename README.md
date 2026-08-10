@@ -8,7 +8,7 @@ An open, reproducible research artifact for studying whether the **location** of
 
 **Research in progress.** The protocol, schemas, audit tools, experiment runner, and unit tests are public. Confirmatory agent runs have not yet been completed, so this repository claims no experimental effect and is not a published or accepted paper.
 
-Two public non-confirmatory pilots now exist. The first [four-condition infrastructure pilot](results/pilot_2026-08-10_deserialization_pyyaml/README.md) uses a read-only output adapter. The second [three-task writable-agent pilot](results/pilot_2026-08-10_writable_three_task/README.md) contains 12 direct file-editing runs with generated sources, records, hashes, and executable outcomes. The artifact currently has 34 unit tests plus a two-version CI matrix.
+Two public non-confirmatory pilots now exist. The first [four-condition infrastructure pilot](results/pilot_2026-08-10_deserialization_pyyaml/README.md) uses a read-only output adapter. The second [three-task writable-agent pilot](results/pilot_2026-08-10_writable_three_task/README.md) contains 12 direct file-editing runs with generated sources, records, hashes, and executable outcomes. A separate [development security-oracle mutation audit](docs/DEVELOPMENT_ORACLE_MUTATION_AUDIT.md) shows that all three targeted unsafe regressions retain functional behavior but are rejected by the security suites. The artifact currently has 48 unit tests plus a two-version CI matrix.
 
 ## Design
 
@@ -55,6 +55,7 @@ Requires Python 3.11 or later and no third-party Python packages for the unit te
 python -m unittest discover -s tests -p "test_*.py" -v
 python scripts/validate_dataset.py examples
 python scripts/validate_task_subset.py configs/task_subset.json
+python scripts/audit_development_oracles.py --validate-existing
 ```
 
 The agent runner refuses to execute while `configs/agents.json` is marked `draft-not-frozen`. This prevents accidental paid or non-reproducible runs. The separate `configs/agents.pilot.json` is frozen only for explicitly labelled non-confirmatory pilots; invoke the runner with `--pilot-only` so those records cannot be presented as confirmatory evidence.
@@ -72,6 +73,8 @@ The writable pilot configuration uses Codex automatic review in a fresh, disposa
 - Treat supplied-source pilots as engineering checks, never experimental results.
 
 The current audited-draft subset contains 11 included tasks across six weakness families and two predeclared exclusions. See `configs/task_subset.json`. It is not confirmatory-frozen yet.
+
+The three development tasks also have a deterministic mutation audit: 3/3 targeted unsafe regressions were detected while all functional tests still passed. This is descriptive oracle evidence, not a claim of exhaustive test adequacy.
 
 ## Research integrity
 
